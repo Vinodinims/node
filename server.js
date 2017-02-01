@@ -1,5 +1,9 @@
 var http = require('http');
-var fs = require('fs')
+var fs = require('fs');
+var express = require('express');
+var app = express();
+var ejs = require('ejs');
+app.set('view engine', 'ejs');
 var server = http.createServer(function (req, res) {
     displayForm(res);
 });
@@ -10,6 +14,10 @@ function displayForm(res) {
             'Content-Type': 'text/html',
                 'Content-Length': data.length
         });
+         var temp = 'some temp';  //here you assign temp variable with needed value
+
+    var renderedHtml = ejs.render(res, {temp: temp});  //get redered HTML code
+    res.end(renderedHtml);
         res.write(data);
         res.end();
     });
